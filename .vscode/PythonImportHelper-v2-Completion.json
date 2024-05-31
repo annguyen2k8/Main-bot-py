@@ -43,14 +43,6 @@
         "documentation": {}
     },
     {
-        "label": "app_commands",
-        "importPath": "discord",
-        "description": "discord",
-        "isExtraImport": true,
-        "detail": "discord",
-        "documentation": {}
-    },
-    {
         "label": "sqlite3",
         "kind": 6,
         "isExtraImport": true,
@@ -76,11 +68,19 @@
         "documentation": {}
     },
     {
-        "label": "commands",
-        "importPath": "discord.ext",
-        "description": "discord.ext",
+        "label": "color_embed",
+        "importPath": "config",
+        "description": "config",
         "isExtraImport": true,
-        "detail": "discord.ext",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
         "documentation": {}
     },
     {
@@ -90,14 +90,6 @@
         "importPath": "asyncio",
         "description": "asyncio",
         "detail": "asyncio",
-        "documentation": {}
-    },
-    {
-        "label": "*",
-        "importPath": "config",
-        "description": "config",
-        "isExtraImport": true,
-        "detail": "config",
         "documentation": {}
     },
     {
@@ -132,15 +124,6 @@
         "description": "cogs.anti_invite.main",
         "peekOfCode": "class AntiInvite(commands.Cog):\n    bot:commands.Bot\n    if not os.path.exists(\"cogs\\\\anti_invite\\\\database\"):\n        os.makedirs(\"cogs\\\\anti_invite\\\\database\")\n    path_database:str = \"cogs\\\\anti_invite\\\\database\\\\database.db\"\n    con:sqlite3.Connection = sqlite3.connect(path_database)\n    cur:sqlite3.Cursor = con.cursor()\n    def __init__(self, bot:commands.Bot) -> None:\n        self.bot = bot\n        # create table GUILDS if not exists",
         "detail": "cogs.anti_invite.main",
-        "documentation": {}
-    },
-    {
-        "label": "ManageServer",
-        "kind": 6,
-        "importPath": "cogs.manage_server.main",
-        "description": "cogs.manage_server.main",
-        "peekOfCode": "class ManageServer(commands.Cog):\n    def __init__(self, bot: commands.Bot):\n        self.bot = bot\nasync def setup(bot: commands.Bot):\n    await bot.add_cog(ManageServer(bot))",
-        "detail": "cogs.manage_server.main",
         "documentation": {}
     },
     {
