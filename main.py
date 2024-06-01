@@ -69,6 +69,7 @@ bot = commands.Bot(command_prefix= prefix,
                    intents= discord.Intents.all(), 
                    help_command= None)
 
+
 @bot.event
 async def on_connect():
     
@@ -85,11 +86,19 @@ async def on_ready():
     logger_ = logging.getLogger('discord.on_ready') 
     logger_.info(f"Logged bot's {bot.user} (ID: {bot.application.id})")
     
+    try:
+        sync = await bot.tree.sync()
+        logger_c = logging.getLogger('discord.commands') 
+        logger_c.info(f"{len(sync)} commands")
+    except Exception as e:
+        logger_.error(e)
+    
     #* Loop change status
     
     bot_status = ["type in \"!help\" for help.", 
               "{:1.0f} guilds | with {:1.0f} users".format(len(bot.guilds),
                         sum([guild.member_count for guild in bot.guilds]))]
+    
     
     while True:
         for name in bot_status:
@@ -97,6 +106,8 @@ async def on_ready():
                 status=discord.Status.online, 
                 activity= discord.CustomActivity(name= name))
             await asyncio.sleep(30)
+        
+        
 
 #* Process error (cooldown, error appcommands)
 
