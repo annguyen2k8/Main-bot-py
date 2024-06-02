@@ -114,21 +114,26 @@ async def on_ready():
 @bot.tree.error
 async def on_app_command_error(interacrion:discord.Interaction, error:app_commands.AppCommandError):
     if isinstance(error, app_commands.errors.CommandOnCooldown):
-        await interacrion.response.send_message('Bạn phải chờ ``{:0.1f}s`` để sử dụng nó!'.format(error.retry_after), ephemeral= True)
+        await interacrion.response.send_message('you must wait for ``{:0.1f}s`` to use it!'.format(error.retry_after), ephemeral= True)
+    if isinstance(error, app_commands.errors.CheckFailure):
+        await interacrion.response.send_message('you have no **PERMISSION** to use it.', ephemeral= True)
     else:
         raise error
 
 #* Manage cogs system
 
+def is_owner_bot(interaction: discord.Interaction):
+    return interaction.user.id == bot.application.owner.id
+
 @bot.tree.command(name='reload_extension', description= 'just owner use.')
+@app_commands.check(is_owner_bot)
 async def reload_cogs(interaction:discord.Interaction):
     global handler
     logger_ = logging.getLogger('discord.cogs') 
-    if interaction.user.id == bot.application.owner.id:
-        for folder in os.listdir('.\\cogs'):
-            await bot.reload_extension(f'cogs.{folder}.main')
-            logger_.info(f'{folder} is reloaded!')
-        await interaction.response.send_message('all extensions war reloaded!', ephemeral= True)
+    for folder in os.listdir('.\\cogs'):
+        await bot.reload_extension(f'cogs.{folder}.main')
+        logger_.info(f'{folder} is reloaded!')
+    await interaction.response.send_message('all extensions war reloaded!', ephemeral= True)
 
 async def load_cogs():
     global handler
