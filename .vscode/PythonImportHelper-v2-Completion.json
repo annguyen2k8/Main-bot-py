@@ -43,6 +43,14 @@
         "documentation": {}
     },
     {
+        "label": "app_commands",
+        "importPath": "discord",
+        "description": "discord",
+        "isExtraImport": true,
+        "detail": "discord",
+        "documentation": {}
+    },
+    {
         "label": "sqlite3",
         "kind": 6,
         "isExtraImport": true,
@@ -68,19 +76,20 @@
         "documentation": {}
     },
     {
-        "label": "color_embed",
-        "importPath": "config",
-        "description": "config",
+        "label": "commands",
+        "importPath": "discord.ext",
+        "description": "discord.ext",
         "isExtraImport": true,
-        "detail": "config",
+        "detail": "discord.ext",
         "documentation": {}
     },
     {
-        "label": "*",
-        "importPath": "config",
-        "description": "config",
+        "label": "re",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "config",
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
         "documentation": {}
     },
     {
@@ -90,6 +99,14 @@
         "importPath": "asyncio",
         "description": "asyncio",
         "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
         "documentation": {}
     },
     {
@@ -122,8 +139,35 @@
         "kind": 6,
         "importPath": "cogs.anti_invite.main",
         "description": "cogs.anti_invite.main",
-        "peekOfCode": "class AntiInvite(commands.Cog):\n    bot:commands.Bot\n    if not os.path.exists(\"cogs\\\\anti_invite\\\\database\"):\n        os.makedirs(\"cogs\\\\anti_invite\\\\database\")\n    path_database:str = \"cogs\\\\anti_invite\\\\database\\\\database.db\"\n    con:sqlite3.Connection = sqlite3.connect(path_database)\n    cur:sqlite3.Cursor = con.cursor()\n    def __init__(self, bot:commands.Bot) -> None:\n        self.bot = bot\n        # create table GUILDS if not exists",
+        "peekOfCode": "class AntiInvite(commands.Cog):\n    bot:commands.Bot\n    if not os.path.exists(\"cogs\\\\anti_invite\\\\database\"):\n        os.makedirs(\"cogs\\\\anti_invite\\\\database\")\n    path_database:str = \"cogs\\\\anti_invite\\\\database\\\\database.db\"\n    con:sqlite3.Connection = sqlite3.connect(path_database)\n    cur:sqlite3.Cursor = con.cursor()\n    def __init__(self, bot:commands.Bot) -> None:\n        ...\n        self.bot = bot",
         "detail": "cogs.anti_invite.main",
+        "documentation": {}
+    },
+    {
+        "label": "is_invite",
+        "kind": 2,
+        "importPath": "cogs.anti_invite.main",
+        "description": "cogs.anti_invite.main",
+        "peekOfCode": "def is_invite(link):\n    pattern = r'(discord\\.gg/|discordapp\\.com/invite/|discord\\.com/invite/)[a-zA-Z0-9]+'\n    if re.search(pattern, link):\n        return True\n    else:\n        return False\ndef is_owner(interaction: discord.Interaction):\n    return interaction.user.id == interaction.guild.owner_id\nclass AntiInvite(commands.Cog):\n    bot:commands.Bot",
+        "detail": "cogs.anti_invite.main",
+        "documentation": {}
+    },
+    {
+        "label": "is_owner",
+        "kind": 2,
+        "importPath": "cogs.anti_invite.main",
+        "description": "cogs.anti_invite.main",
+        "peekOfCode": "def is_owner(interaction: discord.Interaction):\n    return interaction.user.id == interaction.guild.owner_id\nclass AntiInvite(commands.Cog):\n    bot:commands.Bot\n    if not os.path.exists(\"cogs\\\\anti_invite\\\\database\"):\n        os.makedirs(\"cogs\\\\anti_invite\\\\database\")\n    path_database:str = \"cogs\\\\anti_invite\\\\database\\\\database.db\"\n    con:sqlite3.Connection = sqlite3.connect(path_database)\n    cur:sqlite3.Cursor = con.cursor()\n    def __init__(self, bot:commands.Bot) -> None:",
+        "detail": "cogs.anti_invite.main",
+        "documentation": {}
+    },
+    {
+        "label": "ManageVoice",
+        "kind": 6,
+        "importPath": "cogs.manage_voice.main",
+        "description": "cogs.manage_voice.main",
+        "peekOfCode": "class ManageVoice(commands.Cog):\n    def __init__(self, bot: commands.Bot) -> None:\n        self.bot = bot\n    @app_commands.command(name= \"setup_voice\", description= \"setup a duplicate voice channel.\")\n    async def setup_voice(self, interaction: discord.Interaction):\n        ...\nasync def setup(self, bot: commands.Bot):\n    await bot.add_cog(ManageVoice(bot))",
+        "detail": "cogs.manage_voice.main",
         "documentation": {}
     },
     {
