@@ -8,10 +8,10 @@ import re
 
 def is_invite(link):
     pattern = r'(discord\.gg/|discordapp\.com/invite/|discord\.com/invite/)[a-zA-Z0-9]+'
-    if re.search(pattern, link):
-        return True
-    else:
-        return False
+    return re.search(pattern, link)
+
+def is_owner(interaction: discord.Interaction):
+    return interaction.user.id == interaction.guild.owner_id
 
 class AntiInvite(commands.Cog):
     bot:commands.Bot
@@ -24,6 +24,7 @@ class AntiInvite(commands.Cog):
     cur:sqlite3.Cursor = con.cursor()
     
     def __init__(self, bot:commands.Bot) -> None:
+        ...
         self.bot = bot
         
         # create table GUILDS if not exists
@@ -93,10 +94,11 @@ class AntiInvite(commands.Cog):
         ]
     
     @app_commands.command(name= "anti_invite", description= "just owner/moderator/admin or have permission using.")
+    @app_commands.check(is_owner)
     @app_commands.autocomplete(mode= mode_autocompletion)
     async def anti_invite(self, interaction: discord.Interaction, mode:int) -> None:
         self.set_toggle_anti_invite(interaction.guild_id, mode)
-        await interaction.response.send_message(f"**{'🟢' if mode else '🔴'} Anti Invite **")
+        await interaction.response.send_message(f"**``{'🟢' if mode else '🔴'}AntiInvite`` **", ephemeral= True)
     
     @app_commands.command(name= "log_channel", description= "just owner/moderator/admin or have permission using.")
     async def log_channel(self, interaction: discord.Interaction, channel: discord.TextChannel):
@@ -104,4 +106,4 @@ class AntiInvite(commands.Cog):
         self.set_log_channel(interaction.guild_id, channel.id)
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(AntiInvite(bot))
+    await bot.add_cog(AntiInvite(bot))  
